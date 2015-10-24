@@ -26,7 +26,7 @@
             </div>
 			<p>Por favor, digite seu CPF abaixo.</p>
 
-            <form action="edit.jsp" method="post">
+            <form name="edit" id="edit" method="post">
             	
                 <p>
                 <label for="cpf">CPF *</label>
@@ -34,10 +34,13 @@
                 </p>
                
                 <p>
-                <button id="submit" type="submit">Submit</button>
+                <button id="submit" onclick="btn1();">Submit</button>
                 </p>
-                
+                <p>
+                <button id="exclude" onclick="btn2();" >Excluir</button>
+                </p>
             </form>
+           		
             
 
             </div>
@@ -47,6 +50,15 @@
         
     <!--END #signup-form -->   
     </div>
-
+<script type="text/javascript">
+function btn1() {
+	document.edit.action="edit.jsp";
+	document.forms.edit.submit();
+}
+function btn2() {
+	document.edit.action="exclude.jsp";
+	document.forms.edit.submit();
+}
+</script>
 </body>
 </html>

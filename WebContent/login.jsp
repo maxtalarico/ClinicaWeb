@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 <title>loginjsp</title>
 </head>
 <body>
@@ -14,17 +15,35 @@
 		session.putValue("userid",userid);
 		String pwd=request.getParameter("pwd");
 		Class.forName("com.mysql.jdbc.Driver");
-		java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/clinica","root","1234");
+		java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");
 		Statement st=con.createStatement();
 		ResultSet rs=st.executeQuery("select * from acesso where login='"+userid+"'");
-		if(rs.next()){
-			if(rs.getString(3).equals(pwd)){
-				out.println("Bem Vindo, "+userid);
-			}else{
-				out.println("Senha Inválida Tente Novamente");
-			}
-		}else
-			out.println("Digite seu login e senha!");
+		
+		ResultSet rsAtivo=st.executeQuery("select Ativo from pacientes where Id = '" +userid+"'");
+		if(rsAtivo.getBoolean(1) != true) {
+			out.println("Usuário Inativo");
+		} else {
+			if(rs.next()){
+				if(rs.getString(3).equals(pwd)){
+				    out.println("<div id='signup-form'>");
+				    out.println("<div id='signup-inner'>");
+				    out.println("<div class='clearfix' id='header'>");
+				    out.println("<img id='signup-icon' src='./images/signup.png' alt='' />");
+				    out.println("<h1> Bem Vindo, "+userid+" </h1>");
+				    out.println("</div>");
+				    out.println("<p>Sistema Logado<p>");
+				    out.println("<form action='edit.jsp' method='post'>");
+				    out.println("<a href='edit.html' class='btn'><i class='icon-white icon-heart'></i> Alterar</a>");			    
+				    out.println("</form>");
+				    out.println("</div>");
+				    out.println("</div>");
+				    out.println("</div>");	
+				}else{
+					out.println("Senha Inválida Tente Novamente");
+				}
+			}else
+				out.println("Digite seu login e senha!");
+		}	
 	%>
 		<a href="index.html">Pagina Inicial</a>
 </body>

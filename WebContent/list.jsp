@@ -14,7 +14,7 @@
 	<%
 	try{
 		Class.forName("com.mysql.jdbc.Driver");
-		java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/clinica","root","1234");
+		java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test","root","");
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("SELECT * FROM pacientes");
 		out.println("<div class='CSSTableGenerator' >");
